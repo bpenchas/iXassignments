@@ -23,11 +23,20 @@ app.controller("TopStoriesCtrl", function($scope, $http) {
   });
 });
 
-app.controller("SearchCtrl", function($scope) {
-  $scope.searchTerm = "";
+app.controller("SearchCtrl", function($scope, $http) {
+  //$scope.searchTerm = "";
   $scope.search = function() {
     console.log("search clicked");
-    // Code for search here.
+    var url = "https://api.nytimes.com/svc/topstories/v2/opinion.json" +
+    "?api-key=6c1830c231564612bbf5484ce7933e27"
+    $scope.articles = [];
+    $http({
+      method: "GET",
+      url: url
+    }).then(function(response) {
+      $scope.articles = response.data.results;
+    });
   };
+
 });
 
